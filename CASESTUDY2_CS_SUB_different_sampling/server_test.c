@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>  //Header file for sleep(). man 3 sleep for details.
 
-float valuetemp1 = 22.5;  // max value 35
+float pressure = 22.5;  // max value 100
 /*float valuetemp2 = 27.5;  // max value 40
 float valuetemp3 = 29.5;  // max value 45
 float valuetemp4 = 17.5;  // max value 39*/
@@ -20,25 +20,25 @@ static void
 createstructureVerticalWarehouse(UA_Server *server) {
     UA_NodeId pumpId; /* get the nodeid assigned by the server */
     UA_ObjectAttributes oAttr = UA_ObjectAttributes_default;
-    oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Vertical Warehouse");
+    oAttr.displayName = UA_LOCALIZEDTEXT("en-US", "Cell Robot");
     UA_Server_addObjectNode(
         server, UA_NODEID_NULL, UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER),
         UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES),
-        UA_QUALIFIEDNAME(1, "Vertical Warehouse"),
+        UA_QUALIFIEDNAME(1, "Cell Robot"),
         UA_NODEID_NUMERIC(0, UA_NS0ID_BASEOBJECTTYPE), oAttr, NULL, &pumpId);
 
     /* Define the attribute of the myInteger variable node */
     UA_VariableAttributes attrS1 = UA_VariableAttributes_default;
-    UA_Float sens1 = valuetemp1;
+    UA_Float sens1 = pressure;
     UA_Variant_setScalar(&attrS1.value, &sens1, &UA_TYPES[UA_TYPES_FLOAT]);
-    attrS1.description = UA_LOCALIZEDTEXT("en-US", "Temp Sensor1");
-    attrS1.displayName = UA_LOCALIZEDTEXT("en-US", "Temp Sensor1");
+    attrS1.description = UA_LOCALIZEDTEXT("en-US", "Pressure Sensors");
+    attrS1.displayName = UA_LOCALIZEDTEXT("en-US", "Pressure Sensors");
     attrS1.dataType = UA_TYPES[UA_TYPES_FLOAT].typeId;
     attrS1.accessLevel = UA_ACCESSLEVELMASK_READ | UA_ACCESSLEVELMASK_WRITE;
 
     /* Add the variable node to the information model */
-    UA_NodeId nodeS1 = UA_NODEID_STRING(1, "Sensore1 di temperatura");
-    UA_QualifiedName nodenameS1 = UA_QUALIFIEDNAME(1, "Sensore1 di temperatura");
+    UA_NodeId nodeS1 = UA_NODEID_STRING(1, "Sensore di pressione Robot");
+    UA_QualifiedName nodenameS1 = UA_QUALIFIEDNAME(1, "Sensore di pressione Robot");
     // UA_NodeId parentNodeIdS1 = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
     UA_NodeId parentNodeS1 = UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES);
     // UA_Server_addVariableNode(server, nodeS1, pumpId, parentNodeS1, nodenameS1,
@@ -46,60 +46,6 @@ createstructureVerticalWarehouse(UA_Server *server) {
     UA_Server_addVariableNode(server, nodeS1, pumpId, parentNodeS1, nodenameS1,
                               UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), attrS1,
                               NULL, &nodeS1);
-
-    /* Define the attribute of the myInteger variable node */
-    UA_VariableAttributes attrS2 = UA_VariableAttributes_default;
-    UA_Float sens2 = valuetemp2;
-    UA_Variant_setScalar(&attrS2.value, &sens2, &UA_TYPES[UA_TYPES_FLOAT]);
-    attrS2.description = UA_LOCALIZEDTEXT("en-US", "Temp Sensor2");
-    attrS2.displayName = UA_LOCALIZEDTEXT("en-US", "Temp Sensor2");
-    attrS2.dataType = UA_TYPES[UA_TYPES_FLOAT].typeId;
-    attrS2.accessLevel = UA_ACCESSLEVELMASK_READ | UA_ACCESSLEVELMASK_WRITE;
-
-    /* Add the variable node to the information model */
-    UA_NodeId nodeS2 = UA_NODEID_STRING(1, "Sensore2 di temperatura");
-    UA_QualifiedName nodenameS2 = UA_QUALIFIEDNAME(1, "Sensore2 di temperatura");
-    // UA_NodeId parentNodeId = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
-    UA_NodeId parentNodeS2 = UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES);
-    UA_Server_addVariableNode(server, nodeS2, pumpId, parentNodeS2, nodenameS2,
-                              UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), attrS2,
-                              NULL, &nodeS2);
-
-    /* Define the attribute of the myInteger variable node */
-    UA_VariableAttributes attrS3 = UA_VariableAttributes_default;
-    UA_Float sens3 = valuetemp3;
-    UA_Variant_setScalar(&attrS3.value, &sens3, &UA_TYPES[UA_TYPES_FLOAT]);
-    attrS3.description = UA_LOCALIZEDTEXT("en-US", "Temp Sensor3");
-    attrS3.displayName = UA_LOCALIZEDTEXT("en-US", "Temp Sensor3");
-    attrS3.dataType = UA_TYPES[UA_TYPES_FLOAT].typeId;
-    attrS3.accessLevel = UA_ACCESSLEVELMASK_READ | UA_ACCESSLEVELMASK_WRITE;
-
-    /* Add the variable node to the information model */
-    UA_NodeId nodeS3 = UA_NODEID_STRING(1, "Sensore3 di temperatura");
-    UA_QualifiedName nodenameS3 = UA_QUALIFIEDNAME(1, "Sensore3 di temperatura");
-    // UA_NodeId parentNodeId = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
-    UA_NodeId parentNodeS3 = UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES);
-    UA_Server_addVariableNode(server, nodeS3, pumpId, parentNodeS3, nodenameS3,
-                              UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), attrS3,
-                              NULL, &nodeS3);
-
-    /* Define the attribute of the myInteger variable node */
-    UA_VariableAttributes attrS4 = UA_VariableAttributes_default;
-    UA_Float sens4 = valuetemp4;
-    UA_Variant_setScalar(&attrS4.value, &sens4, &UA_TYPES[UA_TYPES_FLOAT]);
-    attrS4.description = UA_LOCALIZEDTEXT("en-US", "Temp Sensore4");
-    attrS4.displayName = UA_LOCALIZEDTEXT("en-US", "Temp Sensore4");
-    attrS4.dataType = UA_TYPES[UA_TYPES_FLOAT].typeId;
-    attrS4.accessLevel = UA_ACCESSLEVELMASK_READ | UA_ACCESSLEVELMASK_WRITE;
-
-    /* Add the variable node to the information model */
-    UA_NodeId nodeS4 = UA_NODEID_STRING(1, "Sensore4 di temperatura");
-    UA_QualifiedName nodenameS4 = UA_QUALIFIEDNAME(1, "Sensore4 di temperatura");
-    // UA_NodeId parentNodeId = UA_NODEID_NUMERIC(0, UA_NS0ID_OBJECTSFOLDER);
-    UA_NodeId parentNodeS4 = UA_NODEID_NUMERIC(0, UA_NS0ID_ORGANIZES);
-    UA_Server_addVariableNode(server, nodeS4, pumpId, parentNodeS4, nodenameS4,
-                              UA_NODEID_NUMERIC(0, UA_NS0ID_BASEDATAVARIABLETYPE), attrS4,
-                              NULL, &nodeS4);
 }
 
 static volatile UA_Boolean running = true;
@@ -118,7 +64,7 @@ static void
 writeVariable(UA_Server *server, float value, char node[]) {
     UA_NodeId mynode = UA_NODEID_STRING(1, node);
 
-    /* Write a different integer value */
+    /* Write a different float value */
     UA_Float myInteger = value;
     UA_Variant myVar;
     UA_Variant_init(&myVar);
@@ -147,48 +93,12 @@ writeVariable(UA_Server *server, float value, char node[]) {
 // A normal C function that is executed as a thread
 // when its name is specified in pthread_create()
 void *
-changevaluetemps1(void *vargp) {
+changevaluepressure(void *vargp) {
     while(true) {
-        writeVariable(server, valuetemp1++, "Sensore1 di temperatura");
-        if(valuetemp1 > 35)
-            valuetemp1 = 22.5;
-        sleep(10);  // 10 sec
-    }
-}
-
-// A normal C function that is executed as a thread
-// when its name is specified in pthread_create()
-void *
-changevaluetemps2(void *vargp) {
-    while(true) {
-        writeVariable(server, valuetemp2++, "Sensore2 di temperatura");
-        if(valuetemp2 > 40)
-            valuetemp2 = 27.5;
-        sleep(30);  // 30 sec
-    }
-}
-
-// A normal C function that is executed as a thread
-// when its name is specified in pthread_create()
-void *
-changevaluetemps3(void *vargp) {
-    while(true) {
-        writeVariable(server, valuetemp3++, "Sensore3 di temperatura");
-        if(valuetemp3 > 45)
-            valuetemp3 = 29.5;
+        writeVariable(server, pressure++, "Sensore di pressione Robot");
+        if(pressure > 100)
+            pressure = 22.5;
         sleep(15);  // 15 sec
-    }
-}
-
-// A normal C function that is executed as a thread
-// when its name is specified in pthread_create()
-void *
-changevaluetemps4(void *vargp) {
-    while(true) {
-        writeVariable(server, valuetemp4++, "Sensore4 di temperatura");
-        if(valuetemp4 > 39)
-            valuetemp4 = 17.5;
-        sleep(60);  // 60 sec
     }
 }
 
@@ -198,34 +108,15 @@ main(void) {
     signal(SIGTERM, stopHandler);
 
     pthread_t threadSens1;
-    pthread_t threadSens2;
-    pthread_t threadSens3;
-    pthread_t threadSens4;
 
     server = UA_Server_new();
     UA_ServerConfig_setDefault(UA_Server_getConfig(server));
 
-    int rc1 = pthread_create(&threadSens1, NULL, changevaluetemps1, NULL);
+    int rc1 = pthread_create(&threadSens1, NULL, changevaluepressure, NULL);
     if(rc1) {
         UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "ERROR: %i", rc1);
         exit(-1);
     }
-    int rc2 = pthread_create(&threadSens2, NULL, changevaluetemps2, NULL);
-    if(rc2) {
-        UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "ERROR: %i", rc2);
-        exit(-1);
-    }
-    int rc3 = pthread_create(&threadSens3, NULL, changevaluetemps3, NULL);
-    if(rc3) {
-        UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "ERROR: %i", rc3);
-        exit(-1);
-    }
-    int rc4 = pthread_create(&threadSens4, NULL, changevaluetemps4, NULL);
-    if(rc4) {
-        UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "ERROR: %i", rc4);
-        exit(-1);
-    }
-
     /* Should the server networklayer block (with a timeout) until a message
        arrives or should it return immediately? */
     UA_Boolean waitInternal = true;

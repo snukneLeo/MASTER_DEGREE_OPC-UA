@@ -1,0 +1,1 @@
+/usr/bin/cc -std=c99 -lpthread -pthread   CMakeFiles/C2.dir/client2.c.o  -o C2  -lopen62541 
